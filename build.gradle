@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.6.0',
+            "io.rest-assured:rest-assured:4.3.1",
+            "org.assertj:assertj-core:3.19.0")
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+test {
+    useJUnitPlatform()
+    testLogging {
+        lifecycle {
+//            events "started", "failed"
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
